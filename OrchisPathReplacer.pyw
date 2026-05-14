@@ -83,6 +83,7 @@ def decode_ws_payload(payload: str) -> str | None:
 
 
 def encode_ws_text(s: str) -> str:
+    # Encode plain text back into ws: comma-separated code points.
     return ",".join(str(ord(ch)) for ch in s)
 
 
@@ -97,6 +98,7 @@ def decode_bn_payload(payload: str) -> bytes | None:
 
 
 def encode_bn_bytes(data: bytes) -> str:
+    # Serialize binary bytes for bn: decimal-list representation.
     return ",".join(str(b) for b in data)
 
 
@@ -265,6 +267,7 @@ class App(tk.Tk):
         self._build_ui()
 
     def _build_ui(self) -> None:
+        # Build the main window controls (file picker, replace options, log).
         pad = {"padx": 8, "pady": 6}
 
         top = ttk.Frame(self)
@@ -341,6 +344,7 @@ class App(tk.Tk):
             messagebox.showerror(APP_TITLE, f"読み込みに失敗しました。\n{e}")
 
     def _validate(self) -> bool:
+        # Validate required inputs before preview/apply.
         if not self.file_path or not self.text or not self.encoding:
             messagebox.showwarning(APP_TITLE, ".ocs ファイルを選択してください。")
             return False
